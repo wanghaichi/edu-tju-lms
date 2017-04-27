@@ -14,7 +14,7 @@ class CreateLmsReservationInfoTable extends Migration
     public function up()
     {
         //
-        Schema::create('lms_reservation', function (Blueprint $table) {
+        Schema::create('lms_reservation_info', function (Blueprint $table) {
             $table->increments('id');
             $table->string('teacher_name');
             $table->unsignedInteger('course_id');

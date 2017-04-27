@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLmsCourseInfoTable extends Migration
+class CreateLmsCourseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateLmsCourseInfoTable extends Migration
     public function up()
     {
         //
-        Schema::create('lms_reservation', function (Blueprint $table) {
+        Schema::create('lms_course', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('number');
