@@ -19,4 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-//Route::get('/course', '');
+Route::get('/course', 'Course\IndexController@index');
+Route::get('/test', function(){
+    return \App\Models\Course::create([
+        'name' => 'math',
+        'number' => '136',
+        'description' => 'hhh'
+    ]);
+});
