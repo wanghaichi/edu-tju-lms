@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,11 +20,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/course', 'Course\IndexController@index');
+Route::get('/course', 'Course\IndexController@index')->middleware('auth');
+
 Route::get('/test', function(){
     return \App\Models\Course::create([
         'name' => 'math',
         'number' => '136',
         'description' => 'hhh'
     ]);
-});
+})->middleware('auth');
