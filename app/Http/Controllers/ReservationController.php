@@ -137,6 +137,26 @@ class ReservationController extends Controller
         ]);
     }
 
+    protected function conflictList($numDay, $numCourse){
+        $conflictWeek = array();
+        for($i = 0; $i < 20; $i ++ ){
+            $conflictWeek[$i] = false;
+        }
+        $conflicts = Reservation::where(['num_day' => $numDay, 'num_course' => $numCourse])->select()->get()->toArray();
+        foreach($conflicts as $conflict){
+            $conflictWeek[$conflict['num_week']] = true;
+        }
+        return $conflictWeek;
+    }
+
+    public function conflict (Request $request){
+        $param = $request->all();
+        $numDay = $param['numDay'];
+        $numCourse = $param['numCourse'];
+        $conflictsArr = $this->conflictList($numDay, $numCourse);
+        return response()->json($conflictsArr);
+    }
+
     /**
      * Display the specified resource.
      *

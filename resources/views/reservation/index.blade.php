@@ -388,7 +388,6 @@
                 }
             });
 //
-            console.log()
             $.post({
                 'url' : '/reservation',
                 'method' : 'post',

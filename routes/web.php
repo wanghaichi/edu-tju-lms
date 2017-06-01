@@ -50,12 +50,13 @@ Route::group(['prefix' => 'reservation'], function(){
     Route::get('/create', 'ReservationController@create');
     Route::get('/{reservation}', 'ReservationController@show');
     Route::get('/{reservation}/edit', 'ReservationController@edit');
+
+    Route::post('/conflict', 'ReservationController@conflict');
+
 });
 //Auth::routes();
 Route::group(['prefix' => 'admin'], function(){
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('logout', 'Auth\LoginController@logout');
-    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::get('/', 'AdminController@index');
 });
 
 Route::get('hh', function(){
