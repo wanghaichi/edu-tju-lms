@@ -8,5 +8,5 @@ class Course extends Model
 {
     //
     protected $table = 'lms_course';
-    protected $fillable = ['name', 'number', 'description'];
+    protected $fillable = ['name', 'number', 'desc'];
 }

@@ -1,0 +1,116 @@
+#background{
+    background: url("../img/login_background.jpg");
+    width: 1904px;
+    height: 1080px;
+}
+label{
+    font-family: "Microsoft YaHei UI Light";
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+#firstRow{
+    margin-top: 1%;
+}
+#lab_tju{
+    margin-left: 20%;
+    font-size: 150%;
+}
+#lab_inquery{
+    margin-left: 62%;
+    margin-top: 1%;
+    font-size: 120%;
+}
+#lab_reserve{
+    margin-left: 20%;
+    margin-top: 1%;
+    font-size: 120%;
+}
+#lab_title{
+    font-size: 350%;
+    letter-spacing: 5px;
+    margin-top: 50%;
+    margin-left: 15%;
+}
+#thirdRow{
+    margin-top: 7%;
+}
+#student_login{
+    margin-left: 15%;
+    cursor: pointer;
+}
+#teacher_login{
+    cursor: pointer;
+}
+#footer{
+    background: url("../img/footer_bg.png");
+    height: 58px;
+    margin-top: 20%;
+}
+#footer_tju{
+    margin-top: 3%;
+    font-size: 18px;
+}
+#footer_aboutUs{
+    margin-top: 3%;
+    margin-left: 15%;
+    font-size: 18px;
+}
+#footer_contactUs{
+    margin-top: 3%;
+    margin-left: 15%;
+    font-size: 18px;
+}
+.modal-body{
+    margin: 35px 80px;
+}
+.modal-close-btn{
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.modal{
+    font-family: "Microsoft YaHei UI Light";
+    border-radius: 100px;
+}
+.modal-content{
+    border-radius: 20px;
+}
+.modal-title{
+    text-align: center;
+    font-size: 23px;
+    margin-bottom: 45px;
+}
+input.form-control{
+    border-radius: 20px;
+    height: 40px;
+    margin-top: 15px;
+}
+#txt_grp{
+    margin-top: 18px;
+}
+#change_txt{
+    margin-left: 12px;
+    color: gray;
+}
+#forget_txt{
+    margin-left: 260px;
+    color: red;
+}
+#modal_stu_login_btn{
+    margin-left: 75px;
+    margin-top: 25px;
+}
+#stu_icon{
+    margin-left: 370px;
+    margin-top: -60px;
+}
+#password_icon{
+    margin-left: 370px;
+    margin-top: -60px;
+}
+.close{
+    font-size: 40px;
+}
+#btn_student_login{
+    margin-left: 40px;
+}
