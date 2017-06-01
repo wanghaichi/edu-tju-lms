@@ -19,7 +19,24 @@ class ReservationController extends Controller
 
         // 鸟哥有毒
         $weeks = [1, 2, 3, 4, 5, 6, 7];
+        $weekInfo = [
+            '1' => '周一',
+            '2' => '周二',
+            '3' => '周三',
+            '4' => '周四',
+            '5' => '周五',
+            '6' => '周六',
+            '7' => '周日'
+        ];
         $rows = [2, 3, 4, 5, 6, 7];
+        $rowInfo = [
+            '2' => '1-2',
+            '3' => '3-4',
+            '4' => '5-6',
+            '5' => '7-8',
+            '6' => '9-10',
+            '7' => '11-12'
+        ];
         $thvals = [
             '2' => '1-2',
             '3' => '3-4',
@@ -37,6 +54,7 @@ class ReservationController extends Controller
                 $rowItem['row_data'][] = [
                     'div_id' => "div_" . $row . $week,
                     'td_id' => $row . "-" . $week,
+                    'div_title' => $weekInfo[$week] . $rowInfo[$row] . "节",
                     'data' => array(),
                 ];
             }

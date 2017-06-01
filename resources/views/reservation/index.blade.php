@@ -60,11 +60,6 @@
                         <option value="19">第十九周</option>
                         <option value="20">第二十周</option>
                     </select>
-                    <script type="text/javascript">
-                        $(function(){
-                            $('select').searchableSelect();
-                        });
-                    </script>
                 </div>
             </div>
             <div class="modal-footer">
@@ -211,7 +206,7 @@
                                 <div class="btn_nav" style="bottom:15px;position: absolute;">
                                     <input type="button" id="button_close_prev" class="prev" style="float:left" value="&laquo;上一步" />
                                     <!--<input type="button" class="next " id="sub" value="确定" />-->
-                                    <button type="button" class="btn btn-default right" data-dismiss="modal" style="background:#ffebc8;width:70px;margin-left:340px">完成</button>
+                                    <button type="button" class="btn btn-default right" onclick="window.location.reload()" data-dismiss="modal" style="background:#ffebc8;width:70px;margin-left:340px">完成</button>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +235,7 @@
                     <tr id="{{ $rowItem['row_id'] }}">
                 @else
                     <tr id="{{ $rowItem['row_id'] }}" style="background-color: #ffebc8">
-                @endif
+                        @endif
                         <th style="border-left: 1px solid #cccccc">{{ $rowItem['th_val'] }}</th>
                         @foreach($rowItem['row_data'] as $item)
                             <td id="{{ $item['td_id'] }}" class="course_table_td">
@@ -249,7 +244,7 @@
                                         <p>{{ $courseItem['name'] }}&nbsp;第{{ $courseItem['week'] }}周</p>
                                     @endforeach
                                 </div>
-                                <div class="suspend">
+                                <div class="suspend" title="{{ $item['div_title'] }}">
                                     <img class="imgSearch" src="/img/search.png" data-toggle="modal" data-target="#myModal_search">
                                     <img class="imgAdd" src="/img/add.png" data-toggle="modal" data-target="#myModal">
                                 </div>
@@ -268,6 +263,13 @@
     <p style="font-size:15px;">天津大学软件学院&nbsp;&nbsp;&nbsp;关于我们&nbsp;&nbsp;&nbsp;联系我们</p>
 </div>
 <script type="text/javascript">
+    var addInfo="";
+    var numCourse;
+    var numDay;
+    var searchInfo="";
+    $(function(){
+        $('select').searchableSelect();
+    });
     $(document).ready(function(){
         $(".course_table_td").hover(function(){
             //alert($(this).attr('id'));
@@ -279,7 +281,18 @@
             //$(this).children().css("display","none");
             $(">div",this).eq(0).css("display","block");
             $(">div",this).eq(1).css("display","none");
-        })
+        });
+
+        $(".imgAdd").click(function () {
+            addInfo=$(this).parent().attr('title');
+            wInfo = $(this).parent().parent().attr('id');
+            wInfo = wInfo.split('-');
+            numDay = wInfo[1];
+            numCourse = wInfo[0];
+            console.log(wInfo);
+//            alert(wInfo);
+            //alert(addInfo);
+        });
     });
 
     $(document).ready(function(){
@@ -375,6 +388,7 @@
                 }
             });
 //
+            console.log()
             $.post({
                 'url' : '/reservation',
                 'method' : 'post',
@@ -386,11 +400,12 @@
                     'studentCategory' : studentCategory,
                     'remark' : remark,
                     'numWeek' : numWeek,
-                    'numDay' : 1,
-                    'numCourse' : 1
+                    'numDay' : numDay,
+                    'numCourse' : numCourse
                 },
                 success: function(data){
                     var str="<p><label>课程名称：</label>"+courseName+"</p>"+"<p><label>实验周数：</label>"+week_no+"</p>"+
+                        "<p><label>实验时间：</label>"+addInfo+"</p>"+
                         "<p><label>学生类型：</label>"+studentCategory+"</p>"+"<p><label>教师姓名：</label>"+teacherName+"</p>"+
                         "<p><label>联系方式：</label>"+teacherTel+"</p>"+"<p><label>备注：</label>"+remark+"</p>";
                     $("#page_3").html(str);
