@@ -21,12 +21,24 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function username(){
+        return 'name';
+    }
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    protected function redirectTo(){
+        if(Auth::user()->is_admin){
+            return '/admin';
+        }
+        else{
+            return '/reservation';
+        }
+    }
 
     /**
      * Create a new controller instance.

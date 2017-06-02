@@ -40,6 +40,7 @@
         <section class="content-header">
             <h1>
                 {{ $moduleName or "后台管理" }}
+
                 <small>{{ $panelName or "模块管理" }}</small>
             </h1>
             <ol class="breadcrumb">
@@ -55,7 +56,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-@include('admin.footer')
+    @include('admin.footer')
 </div>
 <!-- ./wrapper -->
 

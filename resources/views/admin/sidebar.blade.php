@@ -14,7 +14,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">管理列表</li>
-            <li class="treeview active">
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-table"></i> <span>实验室管理</span>
                     <span class="pull-right-container">
@@ -22,8 +22,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> 课程信息</a></li>
-                    <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i>借用情况 </a></li>
+                    <li><a href="{{ url('admin/reservation/course') }}"><i class="fa fa-circle-o"></i> 课程信息</a></li>
+{{--                    <li><a href="{{ url('admin/reservation/') }}"><i class="fa fa-circle-o"></i>借用情况 </a></li>--}}
                 </ul>
             </li>
             <li class="treeview">

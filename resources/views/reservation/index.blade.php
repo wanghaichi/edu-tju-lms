@@ -15,7 +15,7 @@
 <body>
 <div class="head">
     <div class="head_left">天津大学软件学院</div>
-    <div class="head_right">用户信息</div>
+    <div class="head_right">欢迎您：{{ $user or "老师" }}</div>
 </div>
 <div class="modal fade" id="myModal_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -25,48 +25,24 @@
                     &times;
                 </button>
                 <h4 style="font-size: 20px;" class="modal-title" id="myModalLabel_search">
-                    选择查询信息
+                    课程详细信息：
                 </h4>
             </div>
             <div class="modal-body">
                 <div style="margin:20px 10px;font-size:18px;">
-                    <label style="margin:0 20px 0 0">选择实验室：</label>
-                    <input type="radio" name="lab" value="210" style="margin: 0 10px 0 0">210
-                    <input type="radio" name="lab" value="309" style="margin: 0 10px 0 25px;">309
-                </div>
-                <hr>
-                <div style="margin:20px 10px;font-size:18px;">
-                    <label style="margin:0 25px 0 0">选择周数：</label>
-                    <select>
-                        <option value="week">选择周数 </option>
-                        <option value="1">第一周</option>
-                        <option value="2">第二周</option>
-                        <option value="3">第三周</option>
-                        <option value="4">第四周</option>
-                        <option value="5">第五周</option>
-                        <option value="6">第六周</option>
-                        <option value="7">第七周</option>
-                        <option value="8">第八周</option>
-                        <option value="9">第九周</option>
-                        <option value="10">第十周</option>
-                        <option value="11">第十一周</option>
-                        <option value="12">第十二周</option>
-                        <option value="13">第十三周</option>
-                        <option value="14">第十四周</option>
-                        <option value="15">第十五周</option>
-                        <option value="16">第十六周</option>
-                        <option value="17">第十七周</option>
-                        <option value="18">第十八周</option>
-                        <option value="19">第十九周</option>
-                        <option value="20">第二十周</option>
-                    </select>
+                    <div id="selectDetail" style="margin:10px 0px;">
+                        <!--<select onchange="detailChange(this)">-->
+                        <!--<option value="1">1</option>-->
+                        <!--<option value="2">2</option>-->
+                        <!--<option value="3">3</option>-->
+                        <!--</select>-->
+                    </div>
+                    <div id="showDetail"></div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">
-                    查询
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.reload()">
+                    关 闭
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -241,7 +217,13 @@
                             <td id="{{ $item['td_id'] }}" class="course_table_td">
                                 <div id="{{ $item['div_id'] }}">
                                     @foreach($item['data'] as $courseItem)
-                                        <p>{{ $courseItem['name'] }}&nbsp;第{{ $courseItem['week'] }}周</p>
+                                        <div>
+                                            <p>{{ $courseItem['name'] }}&nbsp;第{{ $courseItem['week'] }}周</p>
+                                            <p style="display: none;">{{ $courseItem['teacher_name'] }}</p>
+                                            <p style="display: none;">{{ $courseItem['teacher_tel'] }}</p>
+                                            <p style="display: none;">{{ $courseItem['software'] }}</p>
+                                            <p style="display: none;">{{ $courseItem['remark'] }}</p>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <div class="suspend" title="{{ $item['div_title'] }}">
@@ -267,9 +249,75 @@
     var numCourse;
     var numDay;
     var searchInfo="";
+
+    var detailDiv;
+    var countDetailP=5;
+    var showDetail = new Array();
+    var strDetail = new Array();
+    var optionStrDetail = new Array();
+    var seleceStr="";
+
     $(function(){
         $('select').searchableSelect();
     });
+    $(function(){
+        $('#search_course').searchableSelect();
+    });
+    function detailChange(s) {
+        //alert(s.name);获取当前元素的name
+        //alert(s.value);获取option中的值
+        //alert($(s).val());
+        $("#showDetail").html(strDetail[$(s).val()]);
+
+    }
+    $(document).ready(function () {
+        $(".imgSearch").click(function () {
+            //alert(this.className);
+//           var parentId=$(this).parent().parent().attr('id');
+//           alert(parentId);
+
+//           showDetail[0] = $(">div>p",$(this).parent().parent()).eq(1).text();
+//           alert(showDetail[0]);测试是否可行
+
+            detailDiv=$(">div>div",$(this).parent().parent()).length;
+
+            if(detailDiv==1){
+                for(var i=0;i<countDetailP;i++){
+                    showDetail[i]=$(">div>div>p",$(this).parent().parent()).eq(i).text();
+                    //alert(showDetail[i]);
+                }
+                strDetail[0]="<p><label>课程信息：</label>"+showDetail[0]+"</p>"+"<p><label>教师姓名：</label>"+showDetail[1]+"</p>"
+                    +"</p>"+"<p><label>联系方式：</label>"+showDetail[2]+"</p>"+
+                    "<p><label>所需软件：</label>"+showDetail[3]+"</p>"+"<p><label>备注信息：</label>"+showDetail[4]+"</p>";
+                $("#showDetail").html(strDetail[0]);
+            }
+            if(detailDiv>1){
+                for(var i=0;i<detailDiv*5;i++){
+                    showDetail[i] = $(">div>div>p",$(this).parent().parent()).eq(i).text();
+                    //alert(showDetail[i]+i);
+                }
+                for(var i=1;i<=detailDiv;i++){
+                    strDetail[i-1]="<p><label>教师姓名：</label>"+showDetail[i*5-4]+"</p>" +"</p>"+"<p><label>联系方式：</label>"+showDetail[i*5-3]+"</p>"
+                        +"<p><label>所需软件：</label>"+showDetail[i*5-2]+"</p>"+"<p><label>备注信息：</label>"+showDetail[i*5-1]+"</p>";
+                }
+
+                for(var i=0;i<detailDiv;i++){
+                    if(i==0){
+                        optionStrDetail[i] = "<label>选择课程：</label><select onchange='detailChange(this)' style='height:30px'><option value='"+i+"'>"+showDetail[i*5]+"</option>";
+                    }else if(i==detailDiv-1){
+                        optionStrDetail[i] = "<option value='"+i+"'>"+showDetail[i*5]+"</option></select>";
+                    }else{
+                        optionStrDetail[i] = "<option value='"+i+"'>"+showDetail[i*5]+"</option>";
+                    }
+                    seleceStr+=optionStrDetail[i];
+                    //alert(seleceStr+"  "+i);
+                }
+                $("#selectDetail").html(seleceStr);
+                $("#showDetail").html(strDetail[0]);
+            }
+        })
+    });
+
     $(document).ready(function(){
         $(".course_table_td").hover(function(){
             //alert($(this).attr('id'));
@@ -341,11 +389,37 @@
             }else{
                 $(".wait_1").css({"display":"block","cursor":"wait"});
                 $(".page_1").css("opacity","0.5");
-                setTimeout(function(){
-                    $("#button_course_information_next").parent().parent().parent().animate({"left":"-550px"},500);
-                    $("#status_li1").removeClass("active");
-                    $("#status_li2").addClass("active");
-                },1000);
+                $.post({
+                    'url' : '/reservation/conflict',
+                    'method' : 'post',
+                    'data' : {
+                        'numDay' : numDay,
+                        // 这里是从2开始计算的 注意注意！！！
+                        'numCourse' : numCourse - 1
+                    },
+                    success: function(data){
+                        console.log(data);
+                        var i = 1;
+                        $(".week").each(function () {
+                            var color;
+                            if(data[i]){
+                                $(this).css("background-color", "#cccccc");
+                                $(this).attr('disabled', "disabled");
+                            }
+                            i ++;
+                        });
+                        setTimeout(function(){
+                            $("#button_course_information_next").parent().parent().parent().animate({"left":"-550px"},500);
+                            $("#status_li1").removeClass("active");
+                            $("#status_li2").addClass("active");
+                        },1000);
+
+
+                    }
+                });
+
+
+
             }
         });
 
@@ -369,6 +443,7 @@
             var numWeek = "";
             var week_ary = document.getElementsByName("week");
             //alert(week_ary[i].stylesheet);
+
             $(".week").each(function () {
                 //alert(this.value);
                 var color=$(this).css("background-color");
@@ -400,7 +475,8 @@
                     'remark' : remark,
                     'numWeek' : numWeek,
                     'numDay' : numDay,
-                    'numCourse' : numCourse
+                    // 注意一定要减一
+                    'numCourse' : numCourse - 1
                 },
                 success: function(data){
                     var str="<p><label>课程名称：</label>"+courseName+"</p>"+"<p><label>实验周数：</label>"+week_no+"</p>"+

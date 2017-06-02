@@ -1,7 +1,7 @@
 #background{
     background: url("../img/login_background.jpg");
-    width: 1904px;
-    height: 1080px;
+    width: 100%;
+    height: 100%;
 }
 label{
     font-family: "Microsoft YaHei UI Light";
@@ -27,7 +27,7 @@ label{
     font-size: 120%;
 }
 #lab_title{
-    font-size: 350%;
+    font-size: 300%;
     letter-spacing: 5px;
     margin-top: 50%;
     margin-left: 15%;
@@ -44,20 +44,18 @@ label{
 }
 #footer{
     background: url("../img/footer_bg.png");
-    height: 58px;
-    margin-top: 20%;
+    text-align: center;
+    margin-top: 10%;
+    height:40px;
 }
 #footer_tju{
-    margin-top: 3%;
     font-size: 18px;
 }
 #footer_aboutUs{
-    margin-top: 3%;
     margin-left: 15%;
     font-size: 18px;
 }
 #footer_contactUs{
-    margin-top: 3%;
     margin-left: 15%;
     font-size: 18px;
 }

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Reservation;
 use App\Models\ReservationInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -78,13 +79,20 @@ class ReservationController extends Controller
 //                    dd($num_week);
                     $reservationList[$num_course]['row_data'][$num_day]['data'][$reservation->id] = [
                         'week' => $num_week,
-                        'name' => $reservation->course_name
+                        'name' => $reservation->course_name,
+                        'teacher_name' => $reservation->teacher_name,
+                        'teacher_tel' => $reservation->teacher_tel,
+                        'software'  => $reservation->software,
+                        'remark'    => $reservation->remark,
                     ];
                 }
             }
         }
 //        dd($reservationList);
-        return view('reservation.index', ['reservationList' => $reservationList]);
+        return view('reservation.index', [
+            'reservationList' => $reservationList,
+            'user' => Auth::user()->name,
+        ]);
     }
 
     /**
@@ -139,7 +147,7 @@ class ReservationController extends Controller
 
     protected function conflictList($numDay, $numCourse){
         $conflictWeek = array();
-        for($i = 0; $i < 20; $i ++ ){
+        for($i = 1; $i <= 20; $i ++ ){
             $conflictWeek[$i] = false;
         }
         $conflicts = Reservation::where(['num_day' => $numDay, 'num_course' => $numCourse])->select()->get()->toArray();
@@ -153,6 +161,7 @@ class ReservationController extends Controller
         $param = $request->all();
         $numDay = $param['numDay'];
         $numCourse = $param['numCourse'];
+//        dd($param);
         $conflictsArr = $this->conflictList($numDay, $numCourse);
         return response()->json($conflictsArr);
     }
