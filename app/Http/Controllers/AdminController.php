@@ -7,11 +7,13 @@ use App\Models\ReservationInfo;
 use App\Models\Reservation;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin.index');
+        return redirect('admin/reservation/course');
+//        return view('admin.index');
     }
 
     public function reservation(){
@@ -26,8 +28,6 @@ class AdminController extends Controller
     }
 
     public function course(){
-
-
         $courses = ReservationInfo::paginate(5);
         return view('admin.course', [
             'courses'       =>  $courses,
@@ -167,4 +167,53 @@ class AdminController extends Controller
         return redirect(url('admin/reservation/course'));
     }
 
+    public function teacher(){
+        $teachers = User::where(['is_admin' => 0])->paginate();
+
+        return view('admin.teacher', [
+            'user' => Auth::user()->name,
+            'teachers' => $teachers,
+
+        ]);
+    }
+
+    public function teacherDel($teacherId){
+        $teacher = User::findOrFail($teacherId);
+        $teacher->delete();
+        return redirect('admin/teacher');
+    }
+
+    public function teacherEdit($teacherId){
+        $teacher = User::findOrFail($teacherId);
+        return view('admin.teacherEdit', [
+            'teacher' => $teacher,
+            'user' => Auth::user()->name,
+        ]);
+    }
+    public function teacherUpdate($teacherId, Request $request){
+        $teacher = User::findOrFail($teacherId);
+        $param = $request->all();
+        $teacher->password = bcrypt($param['password']);
+        $teacher->save();
+        return redirect('admin/teacher');
+    }
+    public function teacherDelete($teacherId)
+    {
+        $teacher = User::findORFail($teacherId);
+        $teacher->delete();
+        return redirect('admin/teacher');
+    }
+    public function teacherStore(Request $request){
+        $param = $request;
+        User::create([
+            'name' => $param['name'],
+            'password' => bcrypt($param['password']),
+        ]);
+        return redirect('admin/teacher');
+    }
+    public function teacherAdd(){
+        return view('admin.teacherAdd', [
+            'user' => Auth::user()->name
+        ]);
+    }
 }

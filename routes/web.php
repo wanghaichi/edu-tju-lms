@@ -21,6 +21,7 @@ Route::get('/', function(){
     return redirect()->route('home');
 });
 Route::get('/test', function(){
+    Auth::logout();
 //    User::create([
 //        'name' => 'whc',
 //        'password' => bcrypt('hhxxttxs')
@@ -52,8 +53,9 @@ Route::group(['prefix' => 'reservation'], function(){
         Route::post('/conflict', 'ReservationController@conflict');
     });
 });
+
 //Auth::routes();
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function(){
+Route::group(['prefix' => 'admin'], function(){
 
     Route::group(['middleware' => 'auth.admin'], function (){
         Route::get('/', 'AdminController@index');
@@ -63,6 +65,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.admin'], function(){
             Route::post('/course/{courseId}', 'AdminController@courseUpdate');
 //        Route::get('/', 'AdminController@reservation');
         });
+
+        Route::group(['prefix' => 'teacher'], function(){
+            Route::get('/', 'AdminController@teacher');
+            Route::post('/{teacherId}', 'AdminController@teacherUpdate');
+            Route::get('/{teacherId}/edit', 'AdminController@teacherEdit');
+            Route::get('/{teacherId}/delete', 'AdminController@teacherDelete');
+            Route::get('/add', 'AdminController@teacherAdd');
+            Route::post('/', 'AdminController@teacherStore');
+        });
+
         Route::get('/logout', function(){
             Auth::logout();
             return redirect('/');

@@ -34,8 +34,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/AdminLTE/index.html"><i class="fa fa-circle-o"></i> 教师</a></li>
-                    <li><a href="/AdminLTE/index2.html"><i class="fa fa-circle-o"></i> 学生</a></li>
+                    <li><a href="{{ url('/admin/teacher') }}"><i class="fa fa-circle-o"></i> 教师</a></li>
                 </ul>
             </li>
         </ul>

@@ -29,10 +29,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+//    protected $redirectTo = '/';
 
     protected function redirectTo(){
-        if(Auth::user()->is_admin){
+        if(Auth::user()->is_admin === 1){
             return '/admin';
         }
         else{

@@ -39,7 +39,7 @@
     <div class="row" id="thirdRow">
         <div style="text-align: center">
             <a id="btn_student_login" class="btn" data-toggle="modal" data-target="#modal_stu_login" data-backdrop="true" ><img src="/img/teacher_login_btn.png"/></a>
-            <a class="btn"><img src="/img/student_login_btn.png"/></a>
+            <a class="btn" href="{{ url('/student') }}"><img src="/img/student_login_btn.png"/></a>
         </div>
     </div>
     <div class="row" id="footer">

@@ -18,7 +18,6 @@
                         <!-- User image -->
                         <li class="user-header">
                             <img src="/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                             <p>
                                 {{ $user or "admin" }}
                             </p>
@@ -26,7 +25,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="{{ url('/admin/logout') }}" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>
